@@ -8,9 +8,13 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform mPlayer;
 
     TPCBase mThirdPersonCamera;
+
+    public Vector3 mPositionOffset = new Vector3(0.0f, 2.0f, -2.5f);
+
     // Start is called before the first frame update
     void Start()
     {
+        GameConstants.CameraPositionOffset = mPositionOffset;
         mThirdPersonCamera = new TPCTrack(transform, mPlayer);
     }
 
@@ -63,8 +67,12 @@ public class TPCTrack : TPCBase
     public override void Update()
     {
         Vector3 targetPos = mPlayerTransform.position;
-        playerHeight = 2.0f;
-        targetPos.y += playerHeight;
+        targetPos.y += GameConstants.CameraPositionOffset.y;
         mCameraTransform.LookAt(targetPos);
     }
+}
+
+public static class GameConstants
+{
+    public static Vector3 CameraPositionOffset { get; set; }
 }
