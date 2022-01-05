@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
+    //find player's transform.position
     public Transform mPlayer;
 
     TPCBase mThirdPersonCamera;
@@ -51,14 +52,19 @@ public abstract class TPCBase : MonoBehaviour
 
 public class TPCTrack : TPCBase
 {
+    public float playerHeight;
+
     public TPCTrack(Transform cameraTransform, Transform playerTransform): base(cameraTransform, playerTransform)
     {
 
     }
 
+    //override the update and makes the camera look at player
     public override void Update()
     {
         Vector3 targetPos = mPlayerTransform.position;
+        playerHeight = 2.0f;
+        targetPos.y += playerHeight;
         mCameraTransform.LookAt(targetPos);
     }
 }
